@@ -8,7 +8,7 @@
     "dist": "NODE_ENV=development gulp",
     "build": "NODE_ENV=production gulp",
     "watch": "webpack-dev-server --hot --inline --progress --colors",
-    "server": "node server.js",
+    "server": "node app.js",
     "test": "echo \"No unit tests and e2e tests yet\" && exit 1"
   },
   "repository": {
