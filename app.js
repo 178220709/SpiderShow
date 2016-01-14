@@ -10,9 +10,11 @@ config.entry.unshift('webpack-dev-server/client?http://localhost:4072', "webpack
 
 config.plugins.push(new webpack.HotModuleReplacementPlugin());
 
+var isDev = true
 
 if (os.platform() === 'linux' && os.hostname() == 'jsonsong') {
     console.log(" vps ");
+    isDev = false
 }
 else if (os.hostname() == 'DESKTOP-92VGR1C') {
     console.log(" local win10 ");
@@ -31,8 +33,8 @@ var proxy = [{
 //启动服务
 var app = new WebpackDevServer(webpack(config), {
     publicPath: config.output.publicPath,
-    hot: true,
-    historyApiFallback: true,
+    hot: isDev,
+    historyApiFallback: isDev,
     proxy: proxy
 });
 app.listen(4072);

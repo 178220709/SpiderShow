@@ -24,6 +24,8 @@
 
     import {dealHtml} from "../filters"
 
+    var cnName = localStorage.getItem("cnName") || "spider"
+
     export default {
         data (){
             return {
@@ -39,7 +41,11 @@
             data (transition){
                 try {
                     this.url = decodeURIComponent(transition.to.params.url);
-                    $.post(util.api("spider/getSpiderList"), {Url: this.url}).done(data=> {
+                    let params = {
+                        Url:this.url,
+                        cnName: cnName
+                    };
+                    $.post(util.api("spider/get"),params).done(data=> {
                         this.entity = data.Rows[0];
                         this.Count = data.Count;
                     }, error=>console.log(error))
