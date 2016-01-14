@@ -50,6 +50,10 @@
 
         methods: {
             checkClick(){
+                if (this.code && this.code == "jsonsong") {
+                    localStorage.setItem("cnName","SpiderEntity")
+                }
+
                 if (this.code && this.code == "json") {
                     sessionStorage.setItem("login.key", "json")
                     this.$route.router.go({name: 'list'});

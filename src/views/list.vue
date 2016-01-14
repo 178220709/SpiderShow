@@ -79,6 +79,10 @@
 </template>
 
 <script type="text/babel">
+
+
+    var cnName = localStorage.getItem("cnName") || "spider"
+
     export default {
         data (){
             return {
@@ -107,19 +111,32 @@
         methods: {
             getList (){
                 let params = {
-                    pageIndex: this.PageIndex
+                    pageIndex: this.PageIndex,
+                    cnName: cnName
                 };
 
-                $.post(util.api("spider/getSpiderList"), params).done(data=> {
+                $.post(util.api("spider/get"), params).done(data=> {
                     this.BaseList = data.Rows;
                     this.Count = data.Count;
-                }, error=>console.log(error))
+                })
             },
 
             delClick(){
+                let url = this.BaseList[this.Index].Url
+                let params = {url, cnName};
 
+                $.post(util.api("spider/delete"), params).done(data=> {
+                    this.getList()
+                })
             },
             goNextClick(){
+                if (this.Index == 9) {
+                    this.Index = 0
+                    this.PageIndex += 1
+                    this.getList()
+                } else {
+                    this.Index +=1
+                }
             },
             paging(newIndex){
                 this.Index = 1
@@ -136,6 +153,7 @@
 </script>
 <style lang="sass">
     @import '../assets/bootstrap/css/bootstrap.css';
+
     #divSpiderBox {
         margin: 0 0 0 100px;
     }
