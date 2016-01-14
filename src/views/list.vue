@@ -61,7 +61,7 @@
             </div>
         </div>
         <nv-pager @paging="paging" :total="Count" @size="10"></nv-pager>
-        <div class="row TextCenter" style="padding-left: 100px;">
+        <div class="row TextCenter" style="padding-left: 80px;">
             <div class="col-xs-9">
                 <h1>{{current.Title}}</h1>
                 <div style="margin-bottom: 30px;"></div>
