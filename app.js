@@ -3,11 +3,11 @@
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var config = require('./webpack.config');
+var os = require('os');
 
 config.entry.unshift('webpack-dev-server/client?http://localhost:8090', "webpack/hot/dev-server");
 config.plugins.push(new webpack.HotModuleReplacementPlugin());
 
-var os = require('os');
 
 if (os.platform() === 'linux' && os.hostname() == 'jsonsong') {
     console.log(" vps ");
