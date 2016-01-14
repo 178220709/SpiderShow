@@ -135,6 +135,7 @@
     }
 </script>
 <style lang="sass">
+    @import '../assets/bootstrap/css/bootstrap.css';
     #divSpiderBox {
         margin: 0 0 0 100px;
     }
