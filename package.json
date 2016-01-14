@@ -62,9 +62,8 @@
     "vue-loader": "^7.2.0",
     "vue-resource": "^0.1.17",
     "vue-validator": "^1.4.4",
-    "webpack": "^1.12.2",
-    "webpack-dev-server": "^1.12.0",
-    "filename-regex": "*"
+    "webpack": "1.12.9",
+    "webpack-dev-server": "1.14.0"
   },
   "dependencies": {
     "vue": "^1.0.4",
