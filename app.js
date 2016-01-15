@@ -31,18 +31,19 @@ var proxy = [{
     host: "localhost"
 }]
 
-if (isDev) {
-    //启动服务
-    var app = new WebpackDevServer(webpack(config), {
-        publicPath: config.output.publicPath,
-        hot: true,
-        historyApiFallback: true,
-        proxy: proxy
-    });
-    app.listen(4072);
-} else {
-    require('http-proxy').createServer({
-        target: 'http://localhost:4071'
-    }).listen(4072);
-}
+
+//启动服务
+var app = new WebpackDevServer(webpack(config), {
+    publicPath: config.output.publicPath,
+    hot: isDev,
+    historyApiFallback: isDev,
+    proxy: proxy
+});
+app.listen(4072);
+
+
+require('http-proxy').createServer({
+    target: 'http://localhost:4071'
+}).listen(4073);
+
 
