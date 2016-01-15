@@ -15,6 +15,8 @@ var isDev = true
 if (os.platform() === 'linux' && os.hostname() == 'jsonsong') {
     console.log(" vps ");
     isDev = false
+    config.entry = []
+    config.plugins = []
 }
 else if (os.hostname() == 'DESKTOP-92VGR1C') {
     console.log(" local win10 ");
@@ -41,9 +43,12 @@ var app = new WebpackDevServer(webpack(config), {
 });
 app.listen(4072);
 
-
-require('http-proxy').createServer({
-    target: 'http://localhost:4071'
-}).listen(4073);
-
+//
+//var httpProxy = require('http-proxy');
+//
+//var apiProxy = httpProxy.createProxyServer();
+//
+//app.get("/api/*", function(req, res){
+//    apiProxy.web(req, res, { target: 'http://localhost:4071' });
+//});
 
