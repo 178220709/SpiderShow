@@ -68,6 +68,7 @@
   "dependencies": {
     "vue": "^1.0.4",
     "vue-router": "^0.7.5",
-    "vue-strap": "^1.0.3"
+    "vue-strap": "^1.0.3",
+    "http-proxy":"1.12.0"
   }
 }

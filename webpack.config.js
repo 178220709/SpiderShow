@@ -42,7 +42,7 @@ if (isProduction()) {
 }
 //编译输出路径
 module.exports = {
-    debug: true,
+    debug: !isProduction(),
     entry: entry,
     output: {
         path: __dirname + buildPath,
