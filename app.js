@@ -15,8 +15,7 @@ var isDev = true
 if (os.platform() === 'linux' && os.hostname() == 'jsonsong') {
     console.log(" vps ");
     isDev = false
-    config.entry = []
-    config.plugins = []
+
 }
 else if (os.hostname() == 'DESKTOP-92VGR1C') {
     console.log(" local win10 ");
