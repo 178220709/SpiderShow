@@ -1,6 +1,15 @@
 "use strict"
 
 import utils from  './libs/utils'
+let moment = require('moment');
+
+exports.json = (value) => JSON.stringify(value, 4, "\t");
+exports.date = (value, format) => value ? moment(value).format(format) : "";
+exports.assert = (value, str1, str2) => value == 1 ? `${str1}(${value})` : `${str2}(${value})`
+exports.dic = (value, arrStr) =>arrStr.split(',')[value - 1]
+exports.SpotState = (value) => value == 1 ? `上架(${value})` : `下架(${value})`
+exports.SaleState = (value) => value == 1 ? `开盘(${value})` : `封盘(${value})`
+exports.Status = (value) => value == 0 ? `(启用${value})` : `禁用(${value})`
 
 
 /**格式化时间
@@ -104,34 +113,34 @@ exports.getTitleStr = tab => {
 /** 根据不同的val  显示不同的颜色
  *  @param {Number} val
  */
-exports.getBtnColor= (val) => {
+exports.getBtnColor = (val) => {
     val = ~~val
-    if ( val < 0) {
+    if (val < 0) {
         return "btn-danger"
     }
 
     if (!val || val == 0) {
         return "btn-default"
     }
-    if ( 0<val && val <100 ) {
+    if (0 < val && val < 100) {
         return "btn-info"
     }
-    if ( 100<val   ) {
+    if (100 < val) {
         return "btn-success"
     }
 }
 /** 根据不同的val  显示不同的颜色
  *  @param {Number} val
  */
-exports.dealHtml= (str) => {
+exports.dealHtml = (str) => {
 
-    str = "<div>"+str+"</div>"
+    str = "<div>" + str + "</div>"
 
-   var root = $(str);
-    root.find("img").each(function() {
+    var root = $(str);
+    root.find("img").each(function () {
         var img = $(this);
-        if (img.attr("data-original")){
-            img.prop("src",img.attr("data-original"))
+        if (img.attr("data-original")) {
+            img.prop("src", img.attr("data-original"))
         }
     })
 

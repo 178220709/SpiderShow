@@ -4,9 +4,10 @@ var path = require('path');
 var webpack = require("webpack");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var vue = require("vue-loader");
-var isProduction = function() {
+var isProduction = function () {
     return process.env.NODE_ENV === 'production';
 }
+var ignore = new webpack.IgnorePlugin(/^(jquery|lodash)$/)
 
 //webpck插件
 var plugins = [
@@ -17,17 +18,18 @@ var plugins = [
         allChunks: true,
         disable: false
     }),
+    ignore,
     // 使用 ProvidePlugin 加载使用率高的依赖库
     new webpack.ProvidePlugin({
-      //$: path.resolve(
-      //    __dirname,
-      //    "src/assets/lib/jquery-1.11.3"
-      //),
-      //_: 'lodash',
-      util: path.resolve(
-          __dirname,
-          "src/libs/util"
-      )
+        //$: path.resolve(
+        //    __dirname,
+        //    "src/assets/lib/jquery-1.11.3"
+        //),
+        //_: 'lodash',
+        util: path.resolve(
+            __dirname,
+            "src/libs/util"
+        )
     })
 ];
 var entry = ['./src/main'],
@@ -54,6 +56,7 @@ module.exports = {
             test: /\.vue$/,
             loader: 'vue',
         }, {
+            // ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")
             test: /\.scss$/,
             loader: ExtractTextPlugin.extract(
                 "style-loader", 'css-loader?sourceMap!sass-loader!cssnext-loader')
@@ -65,7 +68,7 @@ module.exports = {
             test: /\.js$/,
             exclude: /node_modules|vue\/dist/,
             loader: 'babel'
-        },{
+        }, {
             test: /\.(jpg|png|gif)$/,
             loader: "file-loader?name=images/[hash].[ext]"
         }, {
@@ -99,5 +102,7 @@ module.exports = {
         }
     },
     plugins: plugins,
+
+
     devtool: '#source-map'
 };

@@ -1,6 +1,6 @@
 <template>
-    <nav style="text-align: center;margin-top: 30px;">
-        <ul class="pagination DivCenter">
+    <nav style="text-align: center;margin:-20px 0 0 0;padding-bottom: 15px;">
+        <ul class="pagination DivCenter" style="margin: 0 0 0 0">
             <li>
                 <a @click="setIndex(1)" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
@@ -15,16 +15,22 @@
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
+
+            <li v-if="showJump">
+                <input class="pagerNum" type="text" v-model="jump" @keyup.enter="jumpClick">
+                <button type="button" class="btn btn-success" @click="jumpClick">GO</button>
+            </li>
+
+
             <li v-if="debug">
                 count: {{count}}
+                offset: {{offset}}
             </li>
         </ul>
     </nav>
 
 </template>
 <script type="text/babel">
-
-
     export default {
         // replace: true,
         props: {
@@ -41,6 +47,10 @@
                 type: Number,
                 required: true
             },
+            showJump: {
+                type: Boolean,
+                default: true
+            },
             debug: {
                 type: Boolean,
                 default: false
@@ -52,7 +62,7 @@
 
         data (){
             return {
-                // count: 1 //page count
+                jump: "" //page count
             }
         },
         computed: {
@@ -61,7 +71,7 @@
             },
             offset(){
                 let _count = this.getCount()
-                return _count < 9 || this.index < 5 ? 0 : this.index - 5
+                return _count < 9 || this.index < 5 ? 0 : Math.min(this.index - 5, _count - 9)
             },
             numCount(){
                 return Math.min(this.getCount(), 9)
@@ -79,6 +89,16 @@
                 let divisor = ~~(this.total / this.size);
                 return (this.total % this.size) == 0 ? divisor : divisor + 1
             },
+            jumpClick(){
+                let _jump = ~~this.jump;
+                let _count = this.getCount()
+                if (_jump < 1 || _jump > _count) {
+                    this.jump = "";
+                    return false;
+                }
+
+                this.setIndex(_jump);
+            },
             setIndex (val){
                 if (this.index == val)
                     return false;
@@ -91,9 +111,16 @@
 </script>
 
 
-<style lang="sass">
+<style>
     .pagination a {
         cursor: pointer;
         width: 42px;
+    }
+
+    .pagination .pagerNum {
+        margin-left: 10px;
+        height: 32px;
+        width: 42px;
+        text-align: center;
     }
 </style>

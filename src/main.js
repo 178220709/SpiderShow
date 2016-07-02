@@ -6,8 +6,6 @@ import VueResource from 'vue-resource'
 import validator from 'vue-validator'
 import filters from './filters'
 import routerMap from './routers'
-import FastClick from 'fastclick'
-
 
 import util from './libs/util'
 
@@ -17,11 +15,11 @@ Vue.use(validator);
 
 Vue.config.debug = true
 
-
 $.ajaxSettings.crossDomain = true;
 
 //实例化Vue的filter
-Object.keys(filters).forEach(k => Vue.filter(k, filters[k]))
+Object.keys(filters).forEach(k => Vue.filter(k, filters[k])
+);
 //实例化VueRouter
 let router = new VueRouter({
     hashbang: true,
@@ -30,17 +28,18 @@ let router = new VueRouter({
     transitionOnLoad: true
 });
 
+//注册全局组件
+Vue.component('lte-top', require("./components/top.vue"));
+Vue.component('content', require("./components/content.vue"));
+
+
 //登录中间验证，页面需要登录而没有登录的情况直接跳转登录
 router.beforeEach(transition => {
-    //处理左侧滚动不影响右边
-    $("html, body, #page").removeClass("scroll-hide");
-    FastClick.attach(document.body);
-
-    var key = localStorage.getItem("login.key") || sessionStorage.getItem("login.key")
-    if ( key== "json" || transition.to.name=="home") {
+    if ( util.hasLogin() || transition.to.name=="home") {
         transition.next();
     } else {
-        transition.redirect("/");
+        //transition.redirect("/");
+        transition.next();
     }
 })
 

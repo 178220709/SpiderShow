@@ -1,139 +1,157 @@
-
 <template>
-    <header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner"
-            style="background-color: rgb(236, 238, 239); ">
-        <div class="container">
-            <nav id="bs-navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a v-link="">首页</a>
-                    </li>
-                    <!--<li  class="dropdown">-->
-                    <!--<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">-->
-                    <!--Dropdown <span class="caret"></span>-->
-                    <!--</a>-->
-                    <!--<ul class="dropdown-menu">-->
-                    <!--<li><a href="#">Action</a></li>-->
-                    <!--<li><a href="#">Another action</a></li>-->
-                    <!--<li><a href="#">Something else here</a></li>-->
-                    <!--<li role="separator" class="divider"></li>-->
-                    <!--<li><a href="#">Separated link</a></li>-->
-                    <!--</ul>-->
-                    <!--</li>-->
+    <div id="divTopContainer">
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="/" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>SMC</b></span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>销售</b>监控中心</span>
+            </a>
 
-                </ul>
-
-
-                <ul class="nav navbar-nav navbar-right hidden-sm">
-                    <li><a @click="showModalClick" style="cursor: pointer">关于</a></li>
-                </ul>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" click="sidebarToggleClick">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                <!-- Navbar Right Menu -->
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <li class="">
+                            <a @click="exitClick" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="hidden-xs">登出</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-toggle="control-sidebar" @click="showModal = true"><i
+                                    class="fa fa-gears"></i></a>
+                        </li>
+                    </ul>
+                </div>
             </nav>
-        </div>
-    </header>
+        </header>
 
-    <modal :show.sync="showModal">
-        <div slot="modal-header" class="modal-header">
-            <h4 class="modal-title">关于本站</h4>
-        </div>
-        <div slot="modal-body" class="modal-body">
-            所有内容来自互联网,本人不对内容负任何责任.
-        </div>
-        <div slot="modal-footer" class="modal-footer">
-            <button type="button" class="btn btn-default" @click='showModal = false'>Exit</button>
-        </div>
-    </modal>
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar" style="height: auto;">
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu">
+                    <li class="header">功能菜单</li>
+                    <li><a v-link="{name : 'dashboard'}"><i class="fa fa-book"></i> <span>Dashboard</span></a></li>
 
+                    <li class="active treeview">
+                        <a href="#">
+                            <i class="fa fa-dashboard"></i> <span>资源中心</span> <i
+                                class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a v-link="{name : 'product'}"><i class="fa fa-book"></i> <span>商品</span></a></li>
+                            <li><a v-link="{name : 'request'}"><i class="fa fa-book"></i> <span>请求</span></a></li>
+                            <li><a v-link="{name : 'message'}"><i class="fa fa-book"></i> <span>数据跟踪</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-dashboard"></i> <span>监控中心</span> <i
+                                class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a v-link="{name : 'queryRequest'}"><i class="fa fa-book"></i> <span>查询请求</span></a></li>
+                            <li><a v-link="{name : 'nodetail'}"><i class="fa fa-book"></i> <span>无码单</span></a></li>
+                            <li><a v-link="{name : 'alert'}"><i class="fa fa-book"></i> <span>告警</span></a></li>
+                            <li><a v-link="{name : 'exception'}"><i class="fa fa-book"></i> <span>异常</span></a></li>
+                        </ul>
+                    </li>
+
+                    <li><a v-link="{name : 'job'}"><i class="fa fa-book"></i> <span>任务执行</span></a></li>
+
+                    <li class=" treeview">
+                        <a href="#">
+                            <i class="fa fa-dashboard"></i> <span>报表展示</span> <i
+                                class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a v-link="{ path: '/charts/pro'}"><i class="fa fa-circle-o"></i> 对接商品</a></li>
+                            <li><a v-link="{ path: '/charts/trace'}"><i class="fa fa-circle-o"></i> 商品跟踪</a></li>
+                            <li><a v-link="{ path: '/charts/stock'}"><i class="fa fa-circle-o"></i> 存量统计</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="header">第三方嵌入</li>
+                    <li><a v-link="{name : 'search'}"><i class="fa fa-book"></i> <span>搜索入口</span></a></li>
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+
+        <modal :show.sync="showModal">
+            <div slot="modal-header" class="modal-header">
+                <h4 class="modal-title">关于</h4>
+            </div>
+            <div slot="modal-body" class="modal-body">
+                资源中心查询页面({{configName}})(v0.0.1)
+                <div>
+                    <input type="text" v-model="flag" @keyup.enter="changeClick">
+                </div>
+                <div>
+                    <input type="text" v-model="proxy" @keyup.enter="changeClick">
+                </div>
+                <input type="button" @click="changeClick" value="修改配置">
+            </div>
+
+            <div slot="modal-footer" class="modal-footer">
+                <button type="button" class="btn btn-default" @click='showModal = false'>Exit</button>
+            </div>
+        </modal>
+    </div>
 </template>
-<script>
-
-    var modal = require('vue-strap').modal;
-
+<script type="text/babel">
+    document.title = "销售引擎监控中心";
+    import {modal} from  'vue-strap';
+    import config  from "../libs/config"
+    import app  from "../assets/dist/js/app"
     export default {
-        replace: true,
-        props: ['pageType', 'fixHead', 'showMenu', 'messageCount', 'needAdd'],
-        data (){
+        data(){
             return {
-                showModal: false
+                flag: localStorage.getItem("flag"),
+                proxy: localStorage.getItem("proxy"),
+                showModal: false,
+                configName: config.name
             }
         },
         methods: {
-            showModalClick (){
-                this.showModal = true
+            exitClick(e){
+                localStorage.setItem("login.key", "")
+                this.$route.router.go({name: 'home'});
+            },
+            changeClick(){
+                localStorage.setItem("flag", this.flag)
+                localStorage.setItem("proxy", this.proxy)
+                this.showModal = false;
             }
         },
+//        route: {
+//            data (transition){
+//                transition.next();
+//            },
+//            deactivate (transition){
+//                transition.next();
+//            }
+//        },
+        ready(){
+            setTimeout(()=> {
+                app()
+            }, 10)
+        },
         components: {
-           modal
+            modal
         }
     }
+
 </script>
 
 
-<style lang="sass">
-    #hd {
-        height: 200px;
-        width: 1000px;
-        background-color: #00aaaa;
-    }
+<style>
 
-    .nv-toolbar {
-        width: 100%;
-        height: 44px;
-        display: -webkit-box;
-        -webkit-box-align: center;
-
-    .toolbar-nav {
-        width: 49px;
-        height: 44px;
-        position: absolute;
-        background: url("../assets/images/components/nav_icon.png") no-repeat center center;
-        background-size: 19px 16px;
-        margin: 0;
-        z-index: 1;
-        top: 0;
-        left: 0;
-    }
-
-    &
-    >
-    span {
-        display: block;
-        text-align: center;
-        height: 100%;
-        line-height: 44px;
-        font-size: 16px;
-        width: 100%;
-        position: relative;
-        z-index: 0;
-    }
-
-    .num {
-        background-color: #80bd01;
-        color: #fff;
-        width: 20px;
-        height: 20px;
-        line-height: 20px;
-        vertical-align: middle;
-        text-align: center;
-        border-radius: 50%;
-        position: absolute;
-        right: 10px;
-        top: 10px;
-        z-index: 10;
-    }
-
-    .add-icon {
-        color: #42b983;
-        position: absolute;
-        right: 10px;
-        top: 10px;
-        z-index: 10;
-        padding: 5px 15px;
-        border-radius: 5px;
-    }
-
-    }
-    .scroll-hide {
-        height: 100%;
-        overflow: hidden;
-    }
 </style>

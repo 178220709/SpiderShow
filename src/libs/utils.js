@@ -1,6 +1,5 @@
 'use strict'
-
-let _ = require('lodash');
+/*global  exports, $,require,_*/
 
 
 let getCheck = {
